@@ -1150,3 +1150,135 @@ cardsWrap.style.opacity = '1';
   }
 
 })();
+
+
+
+
+
+
+
+/* ============================================
+   VOICES OF TRUST — paste at bottom of script.js
+   ============================================ */
+(function () {
+  'use strict';
+
+  var bubbles = document.querySelectorAll('.vot-b');
+  if (!bubbles.length) return;
+
+  /* Randomise float per bubble */
+  bubbles.forEach(function (b) {
+    b.style.animationDelay    = (Math.random() * 3.5).toFixed(2) + 's';
+    b.style.animationDuration = (3.0 + Math.random() * 3.0).toFixed(2) + 's';
+  });
+
+  /* Scroll fade-in */
+  var section = document.getElementById('voices-of-trust');
+  if (!section) return;
+
+  var header = section.querySelector('.vot-header');
+  var wrap   = section.querySelector('.vot-india-wrap');
+
+  if (header) header.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+  if (wrap)   wrap.style.transition   = 'opacity 0.8s ease';
+
+  function hide() {
+    if (header) { header.style.opacity = '0'; header.style.transform = 'translateY(20px)'; }
+    if (wrap)   { wrap.style.opacity   = '0'; }
+  }
+  function show() {
+    if (header) { header.style.opacity = '1'; header.style.transform = 'translateY(0)'; }
+    if (wrap)   { setTimeout(function () { wrap.style.opacity = '1'; }, 180); }
+  }
+
+  hide();
+
+  if (window.IntersectionObserver) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) show(); else hide();
+      });
+    }, { threshold: 0.1 }).observe(section);
+  } else {
+    show();
+  }
+
+})();
+
+
+
+
+
+
+// ===================== WHO AM I SECTION — SCRIPT =====================
+// Wires up the plus button and the arrow/chevron button.
+// Replace the console.log / scroll behavior with whatever action you want.
+
+(function () {
+  var plusBtn = document.querySelector('.whoami-btn-plus');
+  var chevronBtn = document.querySelector('.whoami-btn-chevron');
+
+  if (plusBtn) {
+    plusBtn.addEventListener('click', function () {
+      // Hook up your "expand / read more" behavior here
+      console.log('Plus button clicked');
+    });
+  }
+
+  if (chevronBtn) {
+    chevronBtn.addEventListener('click', function () {
+      // Hook up your "scroll up" behavior here
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+})();
+
+
+
+
+// ===================== EDGE WIDGETS — SCRIPT =====================
+
+(function () {
+  var scrollBtn = document.getElementById('edgeScrollTop');
+  var progressFill = document.getElementById('edgeProgressFill');
+
+  var SHOW_AFTER_PX = 300;
+
+  function getScrollPercent() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight <= 0) return 0;
+    return Math.min(1, Math.max(0, scrollTop / docHeight));
+  }
+
+  function updateProgress() {
+    var percent = getScrollPercent();
+
+    // Fill the vertical progress line based on scroll percentage
+    if (progressFill) {
+      progressFill.style.height = (percent * 100) + '%';
+    }
+
+    // Show/hide the scroll-to-top button
+    if (scrollBtn) {
+      if (window.scrollY > SHOW_AFTER_PX) {
+        scrollBtn.classList.add('is-visible');
+      } else {
+        scrollBtn.classList.remove('is-visible');
+      }
+    }
+  }
+
+  // Initial check (in case page loads mid-scroll)
+  updateProgress();
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+
+  // Smooth scroll to top on click
+  if (scrollBtn) {
+    scrollBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+})();
