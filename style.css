@@ -3447,7 +3447,6 @@ body {
 .whoami-quote-nowrap {
   margin-left: 4px;
 }
-
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 992px) {
   .whoami-wrap {
@@ -3456,6 +3455,8 @@ body {
   }
 
   .whoami-photo {
+    width: 100%;
+    max-width: 608px;
     min-height: 380px;
   }
 
@@ -3497,8 +3498,19 @@ body {
   }
 }
 
-
-
+/* Safety net — guarantees visibility on ALL mobile/tablet widths,
+   regardless of whether IntersectionObserver fires */
+@media (max-width: 992px) {
+  .whoami-photo,
+  .whoami-heading,
+  .whoami-text,
+  .whoami-stat,
+  .whoami-quote {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
 /* ===================== EDGE WIDGETS — STYLES ===================== */
 
 :root {
