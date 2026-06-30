@@ -791,7 +791,18 @@ renderCards();
 featured.style.opacity  = '1';
 cardsWrap.style.opacity = '1';
 
+const ppSection = document.querySelector('.pp-section');
 
+const ppObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      ppObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+if (ppSection) ppObserver.observe(ppSection);
 
 
 
@@ -1152,13 +1163,8 @@ cardsWrap.style.opacity = '1';
 })();
 
 
-
-
-
-
-
 /* ============================================
-   VOICES OF TRUST — paste at bottom of script.js
+   VOICES OF TRUST — single active card fix
    ============================================ */
 (function () {
   'use strict';
@@ -1166,75 +1172,101 @@ cardsWrap.style.opacity = '1';
   var bubbles = document.querySelectorAll('.vot-b');
   if (!bubbles.length) return;
 
-  /* Randomise float per bubble */
+  function clearAll() {
+    bubbles.forEach(function (b) {
+      b.classList.remove('is-active');
+    });
+  }
+
   bubbles.forEach(function (b) {
-    b.style.animationDelay    = (Math.random() * 3.5).toFixed(2) + 's';
-    b.style.animationDuration = (3.0 + Math.random() * 3.0).toFixed(2) + 's';
+    b.addEventListener('mouseenter', function () {
+      clearAll();
+      b.classList.add('is-active');
+    });
+
+    b.addEventListener('mouseleave', function () {
+      b.classList.remove('is-active');
+    });
+
+    // Optional: tap support for mobile/touch devices
+    b.addEventListener('touchstart', function (e) {
+      var alreadyActive = b.classList.contains('is-active');
+      clearAll();
+      if (!alreadyActive) {
+        b.classList.add('is-active');
+      }
+    }, { passive: true });
   });
 
-  /* Scroll fade-in */
-  var section = document.getElementById('voices-of-trust');
-  if (!section) return;
-
-  var header = section.querySelector('.vot-header');
-  var wrap   = section.querySelector('.vot-india-wrap');
-
-  if (header) header.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-  if (wrap)   wrap.style.transition   = 'opacity 0.8s ease';
-
-  function hide() {
-    if (header) { header.style.opacity = '0'; header.style.transform = 'translateY(20px)'; }
-    if (wrap)   { wrap.style.opacity   = '0'; }
-  }
-  function show() {
-    if (header) { header.style.opacity = '1'; header.style.transform = 'translateY(0)'; }
-    if (wrap)   { setTimeout(function () { wrap.style.opacity = '1'; }, 180); }
-  }
-
-  hide();
-
-  if (window.IntersectionObserver) {
-    new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) show(); else hide();
-      });
-    }, { threshold: 0.1 }).observe(section);
-  } else {
-    show();
-  }
+  // Close any open card if user taps outside on touch devices
+  document.addEventListener('touchstart', function (e) {
+    if (!e.target.closest('.vot-b')) {
+      clearAll();
+    }
+  }, { passive: true });
 
 })();
 
 
+function hide() {
+  if (header) { header.style.opacity = '0'; header.style.transform = 'translateY(20px)'; }
+  if (map) { map.style.opacity = '0'; }
+}
 
+function show() {
+  if (header) { header.style.opacity = '1'; header.style.transform = 'translateY(0)'; }
+  if (map) { setTimeout(function () { map.style.opacity = '1'; }, 180); }
+}
 
+hide();
 
+if (window.IntersectionObserver) {
+  new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) show(); else hide();
+    });
+  }, { threshold: 0.1 }).observe(section);
+}
 
 // ===================== WHO AM I SECTION — SCRIPT =====================
 // Wires up the plus button and the arrow/chevron button.
 // Replace the console.log / scroll behavior with whatever action you want.
 
-(function () {
-  var plusBtn = document.querySelector('.whoami-btn-plus');
-  var chevronBtn = document.querySelector('.whoami-btn-chevron');
+// (function () {
+//   var plusBtn = document.querySelector('.whoami-btn-plus');
+//   var chevronBtn = document.querySelector('.whoami-btn-chevron');
 
-  if (plusBtn) {
-    plusBtn.addEventListener('click', function () {
-      // Hook up your "expand / read more" behavior here
-      console.log('Plus button clicked');
+//   if (plusBtn) {
+//     plusBtn.addEventListener('click', function () {
+//       // Hook up your "expand / read more" behavior here
+//       console.log('Plus button clicked');
+//     });
+//   }
+
+//   if (chevronBtn) {
+//     chevronBtn.addEventListener('click', function () {
+//       // Hook up your "scroll up" behavior here
+//       window.scrollTo({ top: 0, behavior: 'smooth' });
+//     });
+//   }
+// })();
+
+
+
+ const whoamiSection = document.querySelector('.whoami-section');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
     });
-  }
+  }, {
+    threshold: 0.2
+  });
 
-  if (chevronBtn) {
-    chevronBtn.addEventListener('click', function () {
-      // Hook up your "scroll up" behavior here
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-})();
-
-
-
+  if (whoamiSection) observer.observe(whoamiSection);
 
 // ===================== EDGE WIDGETS — SCRIPT =====================
 
@@ -1282,3 +1314,80 @@ cardsWrap.style.opacity = '1';
     });
   }
 })();
+
+
+//its for triger animation in top to bottom 
+/* ===== Re-triggering scroll animation for Professional Overview heading ===== */
+const proHeading = document.querySelector('.pro-heading');
+
+const proObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+    } else {
+      entry.target.classList.remove('is-visible');
+    }
+  });
+}, {
+  threshold: 0.3
+});
+
+if (proHeading) proObserver.observe(proHeading);
+
+
+
+
+/* ===== Re-triggering scroll animation for Positive Perspectives title ===== */
+const ppTitle = document.querySelector('.pp-title');
+
+const ppTitleObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+    } else {
+      entry.target.classList.remove('is-visible');
+    }
+  });
+}, {
+  threshold: 0.3
+});
+
+if (ppTitle) ppTitleObserver.observe(ppTitle);
+
+
+
+/* ===== Re-triggering scroll animation for Achievements header ===== */
+const achHeader = document.querySelector('.ach-header');
+
+const achObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+    } else {
+      entry.target.classList.remove('is-visible');
+    }
+  });
+}, {
+  threshold: 0.3
+});
+
+if (achHeader) achObserver.observe(achHeader);
+
+
+
+/* ===== Re-triggering scroll animation for Expertise heading ===== */
+const expertiseHeading = document.querySelector('.expertise-heading');
+
+const expertiseObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+    } else {
+      entry.target.classList.remove('is-visible');
+    }
+  });
+}, {
+  threshold: 0.3
+});
+
+if (expertiseHeading) expertiseObserver.observe(expertiseHeading);
