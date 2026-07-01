@@ -1182,12 +1182,18 @@ img {
 
 /* ── Track wrapper: clips the scrolling row ── */
 .expertise-track-wrapper {
-  width: 100%;
+  /* width: 100%;
   max-width:1240px;
-  /* border:2px solid red; */
+  overflow: hidden;
+  margin-bottom: 14px;
+  margin-left: 50px; */
+
+  width: calc(100% - 100px);
+  max-width:1240px;
   overflow: hidden;
   margin-bottom: 14px;
   margin-left: 50px;
+  margin-right: 50px;
 
   cursor: default;
   /* Fade edges for a polished look on all screens */
@@ -1991,13 +1997,22 @@ img {
 }
 
 /* ── TRACK WRAPPER ── */
-.tb-track-wrapper {
+/* .tb-track-wrapper {
   width: 100%;
   max-width:1240px;
   overflow: hidden;
   margin-bottom: 24px;
   margin-left:50px;
-  /* margin-right:100px; */
+} */
+
+
+.tb-track-wrapper {
+  width: calc(100% - 100px);
+  max-width:1240px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  margin-left:50px;
+  margin-right:50px;
 }
 
 .tb-track-wrapper:last-child {
