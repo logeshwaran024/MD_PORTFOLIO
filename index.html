@@ -1270,51 +1270,624 @@
 
 
 
+<!-- ============================================================
+     ECOG — "Let's Collaborate" / Contact Section (v2)
+     Real Zoho Bigin field order/labels: First Name, Last Name,
+     Mobile, Email, Description — laid out in a 2-column grid,
+     visible labels above each field, fully responsive.
 
+     Drop this whole block into your index.html wherever the
+     Contact section should sit. Fully self-contained.
+     ============================================================ -->
 
-  <!-- ========== SECTION 6: CONTACT ========== -->
-  <section class="contact-section">
-    <div class="contact-card">
+<style>
+/* ===================== ECOG COLLABORATE — SCOPE ===================== */
+.ecog-collab-section{
+  width:100%;
+  padding:60px 40px;
+  background:#f4f6f4;
+  box-sizing:border-box;
+  font-family:'Inter', Arial, sans-serif;
+}
+.ecog-collab-card{
+  max-width:1180px;
+  margin:0 auto;
+  background:#dfeada;
+  border-radius:24px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:40px;
+  padding:44px 48px;
+  box-sizing:border-box;
+  position:relative;
+}
 
-      <div class="contact-left">
-        <div class="contact-profile">
-          <div class="contact-profile-info">
-            <div class="contact-profile-name">Raghupati N</div>
-            <div class="contact-profile-title">Managing Director</div>
-          </div>
-        </div>
+/* ---------- LEFT PANEL ---------- */
+.ecog-collab-left{
+  flex:1 1 340px;
+  min-width:280px;
+  display:flex;
+  flex-direction:column;
+}
+.ecog-collab-profile{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:28px;
+}
+.ecog-collab-avatar{
+  width:76px;
+  height:76px;
+  border-radius:50%;
+  object-fit:cover;
+  flex-shrink:0;
+  background:#c9d6c2;
+}
+.ecog-collab-profile-text h4{
+  margin:0;
+  font-size:19px;
+  font-weight:700;
+  color:#1b1b1b;
+  line-height:1.3;
+}
+.ecog-collab-profile-text p{
+  margin:2px 0 0;
+  font-size:14px;
+  color:#4a4a4a;
+  font-weight:500;
+}
+.ecog-collab-heading{
+  font-family:'Playfair Display', Georgia, serif;
+  font-size:32px;
+  font-weight:700;
+  color:#1b1b1b;
+  margin:0 0 26px;
+  line-height:1.2;
+}
+.ecog-collab-info-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:40px 60px;
+  margin-bottom:22px;
+}
+.ecog-collab-info-block h5{
+  margin:0 0 6px;
+  font-size:14px;
+  font-weight:700;
+  color:#1b1b1b;
+}
+.ecog-collab-info-block p{
+  margin:0;
+  font-size:14px;
+  color:#3a3a3a;
+  line-height:1.5;
+}
+.ecog-collab-hq{ margin-bottom:28px; }
 
-        <h2 class="contact-heading">Let's Collaborate</h2>
+.ecog-collab-socials-wrap{
+  position:relative;
+  margin-top:auto;
+  height:44px;
+}
+.ecog-collab-socials{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity 0.6s ease;
+}
+.ecog-collab-socials.is-active{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.ecog-collab-socials a{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:#eef4ea;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  text-decoration:none;
+  flex-shrink:0;
+}
+.ecog-collab-socials img{
+  width:44px;
+  height:44px;
+  object-fit:contain;
+}
 
-        <div class="contact-details">
-          <div class="contact-detail-row">
-            <div class="contact-detail-col">
-              <div class="contact-label">Contact</div>
-              <div class="contact-value">+91 7448359992</div>
-            </div>
-            <div class="contact-detail-col">
-              <div class="contact-label">Email</div>
-              <div class="contact-value">salesecog@gmail.com</div>
-            </div>
-          </div>
-          <div class="contact-detail-col" style="margin-top:14px;">
-            <div class="contact-label">Headquarters</div>
-            <div class="contact-value">
-              Karattu Medu, Murugan Temple Ezhil nagar,<br>
-              Sathy Rd, Coimbatore, Tamil Nadu 641035
-            </div>
-          </div>
+/* ---------- RIGHT PANEL (Bigin form wrapper) ---------- */
+.ecog-collab-right{
+  flex:1 1 420px;
+  min-width:280px;
+}
+.ecog-bigin-embed{
+  background:#ffffff;
+  border-radius:20px;
+  padding:36px 36px 30px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.06);
+  box-sizing:border-box;
+}
+
+/* Kill the default Bigin chrome we don't want */
+.ecog-bigin-embed .wf-parent{
+  padding:0 !important;
+  background:none !important;
+  overflow:visible !important;
+  height:auto !important;
+}
+.ecog-bigin-embed .wf-wrapper{
+  max-width:100% !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  background:transparent !important;
+}
+.ecog-bigin-embed .wf-logo{ display:none !important; }
+.ecog-bigin-embed .wf-header{ display:none !important; }
+.ecog-bigin-embed .wf-form-component{ padding:0 !important; }
+.ecog-bigin-embed .wform-poweredby-container{ display:none !important; }
+
+/* Post-submit confirmation iframe — Zoho swaps to this after a
+   successful submit. Without explicit sizing it renders at the
+   browser default (tiny + scrollbars), so we size it to fill
+   the same white card the form sits in. */
+.ecog-bigin-embed .iframe-container{
+  width:100% !important;
+  height:100% !important;
+  min-height:420px !important;
+  border:none !important;
+  border-radius:14px !important;
+  display:block;
+}
+
+/* Real Zoho field labels — visible, above each input */
+.ecog-bigin-embed .wf-label{
+  display:block !important;
+  width:100% !important;
+  padding:0 0 6px !important;
+  font-size:13px !important;
+  font-weight:600 !important;
+  color:#1b1b1b !important;
+}
+
+/* 2-column grid, real Zoho field order (First Name, Last Name /
+   Mobile, Email / Description full width) — uses `order` only,
+   underlying field names/ids/order in the DOM stay untouched */
+.ecog-bigin-embed #elementDiv717173000001162007{
+  display:grid !important;
+  grid-template-columns:1fr 1fr;
+  column-gap:20px;
+  row-gap:16px;
+}
+.ecog-bigin-embed .wf-row{
+  margin-bottom:0 !important;
+  display:block !important;
+}
+/* First Name */
+.ecog-bigin-embed .wf-row:nth-of-type(1){ order:1; grid-column:1; }
+/* Last Name */
+.ecog-bigin-embed .wf-row:nth-of-type(2){ order:2; grid-column:2; }
+/* Mobile */
+.ecog-bigin-embed .wf-row:nth-of-type(3){ order:3; grid-column:1; }
+/* Email */
+.ecog-bigin-embed .wf-row:nth-of-type(4){ order:4; grid-column:2; }
+/* Description -> full width */
+.ecog-bigin-embed .wf-row:nth-of-type(5){ order:5; grid-column:1 / span 2; }
+.ecog-bigin-embed .wform-btn-wrap{ order:6; grid-column:1 / span 2; margin-top:6px !important; justify-content:flex-start !important; }
+
+.ecog-bigin-embed .wf-field,
+.ecog-bigin-embed .wf-field-inner{ width:100% !important; }
+
+.ecog-bigin-embed .wf-field-input,
+.ecog-bigin-embed .wf-text-area-input{
+  border:1px solid #e0e3e0 !important;
+  border-radius:8px !important;
+  padding:13px 16px !important;
+  font-size:14px !important;
+  color:#1b1b1b !important;
+  background:#ffffff !important;
+  box-sizing:border-box !important;
+}
+.ecog-bigin-embed .wf-field-input::placeholder,
+.ecog-bigin-embed .wf-text-area-input::placeholder{
+  color:#a7aca8 !important;
+  font-size:14px !important;
+}
+.ecog-bigin-embed .wf-field-input:focus,
+.ecog-bigin-embed .wf-text-area-input:focus{
+  border-color:#8faa80 !important;
+  box-shadow:0 0 0 3px rgba(143,170,128,0.15) !important;
+}
+.ecog-bigin-embed .wf-text-area-input{
+  min-height:110px !important;
+  height:110px !important;
+  resize:none !important;
+}
+.ecog-bigin-embed .wf-field-mandatory .wf-field-inner::before{ display:none !important; }
+
+.ecog-bigin-embed .wf-btn{
+  background:#8faa80 !important;
+  border:1px solid #8faa80 !important;
+  color:#ffffff !important;
+  border-radius:8px !important;
+  padding:12px 30px !important;
+  font-size:14px !important;
+  font-weight:600 !important;
+  width:auto !important;
+}
+.ecog-bigin-embed .wf-btn:hover{ background:#7c9a6c !important; }
+
+/* ===================== RESPONSIVE ===================== */
+
+/* Tablet / small laptop */
+@media (max-width:1024px){
+  .ecog-collab-section{ padding:48px 28px; }
+  .ecog-collab-card{ padding:36px; gap:32px; }
+  .ecog-collab-heading{ font-size:28px; }
+}
+
+/* Stack left/right panels, single column form */
+@media (max-width:820px){
+  .ecog-collab-card{ flex-direction:column; }
+  .ecog-collab-left{ order:1; }
+  .ecog-collab-right{ order:2; }
+  .ecog-bigin-embed #elementDiv717173000001162007{ grid-template-columns:1fr; }
+  .ecog-bigin-embed .wf-row:nth-of-type(1),
+  .ecog-bigin-embed .wf-row:nth-of-type(2),
+  .ecog-bigin-embed .wf-row:nth-of-type(3),
+  .ecog-bigin-embed .wf-row:nth-of-type(4),
+  .ecog-bigin-embed .wf-row:nth-of-type(5){ grid-column:1; }
+}
+
+/* Mobile */
+@media (max-width:600px){
+  .ecog-collab-section{ padding:36px 16px; }
+  .ecog-collab-card{ padding:26px; border-radius:18px; gap:28px; }
+  .ecog-collab-heading{ font-size:25px; margin-bottom:20px; }
+  .ecog-collab-info-grid{ gap:24px 40px; }
+  .ecog-collab-profile{ gap:12px; margin-bottom:22px; }
+  .ecog-collab-avatar{ width:64px; height:64px; }
+  .ecog-bigin-embed{ padding:24px 20px; }
+  .ecog-bigin-embed .wform-btn-wrap{ justify-content:stretch !important; }
+  .ecog-bigin-embed .wf-btn{ width:100% !important; }
+}
+
+/* Small phones */
+@media (max-width:380px){
+  .ecog-collab-section{ padding:28px 12px; }
+  .ecog-collab-card{ padding:20px; }
+  .ecog-collab-heading{ font-size:22px; }
+  .ecog-collab-info-grid{ gap:18px 28px; }
+  .ecog-collab-socials a{ width:38px; height:38px; }
+  .ecog-collab-socials img{ width:22px; height:22px; }
+  .ecog-bigin-embed{ padding:20px 16px; }
+}
+</style>
+
+<section class="ecog-collab-section">
+  <div class="ecog-collab-card">
+
+    <!-- ================= LEFT: PROFILE + INFO ================= -->
+    <div class="ecog-collab-left">
+      <div class="ecog-collab-profile">
+        <img class="ecog-collab-avatar" src="img/md.png" alt="Raghupati N">
+        <div class="ecog-collab-profile-text">
+          <h4>Raghupati N</h4>
+          <p>Managing Director</p>
         </div>
       </div>
 
-      <div class="contact-right">
-        
-        <iframe width='610px' height='800px' src='https://in.bigin.online/ecoggroups/forms/get-in-touch'></iframe>
+      <h2 class="ecog-collab-heading">Let&rsquo;s Collaborate</h2>
 
+      <div class="ecog-collab-info-grid">
+        <div class="ecog-collab-info-block">
+          <h5>Contact</h5>
+          <p>+91 7448359992</p>
+        </div>
+        <div class="ecog-collab-info-block">
+          <h5>Email</h5>
+          <p>mdecog@gmail.com</p>
+        </div>
       </div>
 
+      <div class="ecog-collab-info-block ecog-collab-hq">
+        <h5>Headquarters</h5>
+        <p>Karattu Medu, Murugan Temple Ezhil nagar,<br>Sathy Rd, Coimbatore, Tamil Nadu 641035</p>
+      </div>
+
+      <div class="ecog-collab-socials-wrap">
+        <div class="ecog-collab-socials is-active" data-ecog-set="badges">
+          <img src="img/firm (1).png" alt="JCI">
+          <img src="img/firm (2).png" alt="Membership">
+          <img src="img/firm (3).png" alt="BNI">
+          <img src="img/firm (4).png " alt="Membership">
+        </div>
+        <div class="ecog-collab-socials" data-ecog-set="links">
+          <a href="#" target="_blank"><img src="img/what.png" alt="WhatsApp"></a>
+          <a href="#" target="_blank"><img src="img/yt.png" alt="Youtube"></a>
+          <a href="#" target="_blank"><img src="img/insta.png" alt="Instagram"></a>
+          <a href="#" target="_blank"><img src="img/face.png" alt="Facebook"></a>
+          <a href="#" target="_blank"><img src="img/twi.png" alt="Twitter"></a>
+
+        </div>
+      </div>
     </div>
-  </section>
+
+    <!-- ================= RIGHT: ZOHO BIGIN FORM ================= -->
+    <div class="ecog-collab-right">
+      <div class="ecog-bigin-embed">
+
+<iframe id='hidden717173000001162007Frame' name='hidden717173000001162007Frame' style='display: none;' class='iframe-container' scrolling='no' frameborder='0'></iframe>
+<div class='wf-parent'  id='BiginWebToRecordFormParent717173000001162007'>
+	<div class='wf-wrapper' id='BiginWebToRecordFormDiv717173000001162007'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<META HTTP-EQUIV='content-type' CONTENT='text/html;charset=UTF-8'>
+	<form id='BiginWebToRecordForm717173000001162007' name='BiginWebToRecordForm717173000001162007' class='wf-form-component' data-ux-form-alignment='top' style='font-family: Arial;position: relative;font-size:15px;' method='POST' enctype='multipart/form-data' target='hidden717173000001162007Frame' onSubmit='javascript:document.charset="UTF-8"; return validateForm717173000001162007()' accept-charset='UTF-8'>
+<!-- Do not remove this code. -->
+ 	<input type='text' style='display:none;' name='xnQsjsdp' value='1a682d23c566990e836688657c5b3a334de340080bb244c526b8c57a34e33c49'/>
+ 	<input type='hidden' name='zc_gad' id='zc_gad' value=''/>
+ 	<input type='text' style='display:none;' name='xmIwtLD' value='d45e1e04ea1ba6a0aa3684a286d7ef28d3bb3cd6ea9f97d72add1ed84c6dd7ac91b8b0a3ce2b77839868a14d59259317'/>
+ 	<input type='text' style='display:none;' name='actionType' value='Q29udGFjdHM='/>
+ 	<input type='hidden' name='rmsg' id='rmsg' value='true'/>
+ 	<input type='text' style='display:none;' name='returnURL' value='null' />
+ 	<div id='elementDiv717173000001162007' class='wf-form-wrapper'>
+ 	 	<div class='wf-row'>
+ 	 	 	<div class='wf-label'>First Name</div>
+ 	 	 	<div class='wf-field'>
+ 	 	 	 	<div class='wf-field-inner'>
+ 	 	 	 	<input name='First Name' maxlength='40' type='text' value='' class='wf-field-item wf-field-input' oninput='removeError(this)'/>
+ 	 	 	 	</div>
+ 	 	 	</div>
+ 	 	</div>
+ 	 	<div class='wf-row'>
+ 	 	 	<div class='wf-label'>Last Name</div>
+ 	 	 	<div class='wf-field wf-field-mandatory'>
+ 	 	 	 	<div class='wf-field-inner'>
+ 	 	 	 	<input name='Last Name' maxlength='80' type='text' value='' class='wf-field-item wf-field-input' oninput='removeError(this)'/>
+ 	 	 	 	</div>
+ 	 	 	</div>
+ 	 	</div>
+ 	 	<div class='wf-row'>
+ 	 	 	<div class='wf-label'>Mobile</div>
+ 	 	 	<div class='wf-field wf-field-mandatory'>
+ 	 	 	 	<div class='wf-field-inner'>
+ 	 	 	 	<input fvalidate='true' ftype='mobile' name='Mobile' maxlength='30' type='text' value='' class='wf-field-item wf-field-input' oninput='removeError(this)'/>
+ 	 	 	 	</div>
+ 	 	 	</div>
+ 	 	</div>
+ 	 	<div class='wf-row'>
+ 	 	 	<div class='wf-label'>Email</div>
+ 	 	 	<div class='wf-field wf-field-mandatory'>
+ 	 	 	 	<div class='wf-field-inner'>
+ 	 	 	 	<input fvalidate='true' ftype='email' name='Email' maxlength='100' type='text' value='' class='wf-field-item wf-field-input' oninput='removeError(this)'/>
+ 	 	 	 	</div>
+ 	 	 	</div>
+ 	 	</div>
+ 	 	<div class='wf-row'>
+ 	 	 	<div class='wf-label'>Description</div>
+ 	 	 	<div class='wf-field'>
+ 	 	 	 	<div class='wf-field-inner'>
+ 	 	 	 	<textarea name='Description' maxlength='32000' type='text' class='wf-field-item wf-field-input wf-text-area-input' oninput='removeError(this)'></textarea>
+ 	 	 	 	</div>
+ 	 	 	</div>
+ 	 	</div>
+ 	 	<div class='wform-btn-wrap' data-ux-pos='left'>
+ 	 	 	<input id='formsubmit' type='submit' class='wf-btn' data-ux-btn-type='default' style='width: auto;' value='Submit'/>
+ 	 	</div>
+	</div>
+	<a class='wform-poweredby-container' target='_blank' style='color: #fff;text-decoration: none;display: flex;align-items: center;font-weight: 500;' href='https://zoho.in/bigin/?utm_source=biginwebforms&utm_medium=organic&utm_id=product' id='poweredBy717173000001162007'>
+		<span style='padding-inline-end: 5px;color: #C5D4E5;'>Powered by</span>
+		<img src='https://bigin.zoho.in/images/bigin-logo-xs.svg' style='margin-inline-end: 5px;'/>
+		<span>Bigin</span>
+	</a>
+	</form>
+	</div>
+</div>
+<script>
+ 	  var mndFields717173000001162007=new Array('Last Name','Mobile','Email');
+ 	  var fldLangVal717173000001162007=new Array('Last Name','Mobile','Email');
+ 	 var wfInnerWidth = window.innerWidth;
+ 	 if(wfInnerWidth <= 768){
+ 	 	 document.forms['BiginWebToRecordForm717173000001162007'].setAttribute('data-ux-form-alignment', 'top');
+ 	 }
+ 	function removeError(fieldObj) {
+ 	 	var parentElement = fieldObj.closest('.wf-field'),
+ 	 	 	childEle = parentElement.getElementsByClassName('wf-error-parent-ele')[0];
+ 	 	if(childEle) {
+ 	 	 	parentElement.classList.remove('wf-field-error-active');
+ 	 	 	parentElement.removeChild(parentElement.getElementsByClassName('wf-error-parent-ele')[0]);
+ 	 	}
+ 	}
+ 	function setError(fieldObj, label) {
+ 	 	var parentElement = fieldObj.closest('.wf-field'),
+ 	 		childEle = parentElement.getElementsByClassName('wf-error-parent-ele')[0];
+ 	 	if(!childEle) {
+ 	 	 	var errorParentEle = document.createElement('DIV'),
+ 	 	 	spanEle = document.createElement('SPAN'),
+ 	 	 	viewMoreEle = document.createElement('SPAN');
+ 	 	 	spanEle.setAttribute('class', 'wf-field-error wf-field-error-long');
+ 	 	 	spanEle.innerHTML = label;
+ 	 	 	errorParentEle.classList.add('wf-error-parent-ele');
+ 	 	 	errorParentEle.appendChild(spanEle);
+ 	 	 	parentElement.append(errorParentEle);
+ 	 	 	parentElement.classList.add('wf-field-error-active');
+ 	 	 	if(spanEle.scrollWidth > parentElement.offsetWidth) {
+ 	 	 	 	viewMoreEle.innerHTML = 'View More';
+ 	 	 	 	viewMoreEle.classList.add('wf-error-view-more');
+ 	 	 	 	errorParentEle.append(viewMoreEle);
+ 	 	 	 	viewMoreEle.addEventListener('click', function() {
+ 	 	 	 	errorParentEle.removeChild(viewMoreEle);
+ 	 	 	 	spanEle.classList.remove('wf-field-error-long');
+ 	 	 	 	});
+ 	 	 	} else {
+ 	 	 	 	spanEle.classList.remove('wf-field-error-long')
+ 	 	 	}
+ 	 	}
+ 	}
+ 	function validateFields717173000001162007() {
+ 	 	var isReturn = true;
+ 	 	var form = document.forms['BiginWebToRecordForm717173000001162007'];
+ 	 	var validateFld = form.querySelectorAll('[fvalidate=true]');
+ 	 	var i;
+ 	 	for (i = 0; i < validateFld.length; i++)
+ 	 	{
+ 	 	 	var validateFldVal = validateFld[i].value;
+ 	 	 	var fType = validateFld[i].getAttribute('ftype');
+ 	 	 	if(validateFldVal !== '' || (validateFldVal === '' && fType.indexOf('date') !== -1)) {
+ 	 	 	 	var wfLabel = validateFld[i].parentElement.parentElement.parentElement.getElementsByClassName('wf-label')[0];
+ 	 	 	 	var fLabel = wfLabel ? wfLabel.innerHTML: '';
+ 	 	 	 	switch(validateFld[i].getAttribute('ftype')) {
+ 	 	 	 	case 'string_rest_number':
+ 	 	 	 	case 'string':
+ 	 	 	 	 	var isError = false,
+ 	 	 	 	 	errorKey = 'Only letters are allowed.';
+ 	 	 	 	 	if(validateFld[i].getAttribute('ftype') === 'string_rest_number' && validateFldVal.match((/\d/g)) !== null) {	
+ 	 	 	 	 	 	isError = true;
+ 	 	 	 	 	}else if(validateFld[i].hasAttribute('fmin')){
+ 	 	 	 	 	 	if(validateFldVal.length < parseInt(validateFld[i].getAttribute('fmin'))) {
+ 	 	 	 	 	 	 	errorKey = 'Your input must be at least ' +validateFld[i].getAttribute('fmin') + ' character(s).';
+ 	 	 	 	 	 	 	isError = true;
+ 	 	 	 	 	 	} else if(validateFldVal.length > parseInt(validateFld[i].getAttribute('fmax'))) {
+ 	 	 	 	 	 	 	errorKey = 'Your input should not exceed ' +validateFld[i].getAttribute('fmax') + ' character(s).';
+ 	 	 	 	 	 	 	isError = true;
+ 	 	 	 	 	 	}
+ 	 	 	 	 	}
+ 	 	 	 	 	if(isError){
+ 	 	 	 	 	 	setError(validateFld[i], errorKey);
+ 	 	 	 	 	 	isReturn = false;
+ 	 	 	 	 	}
+ 	 	 	 	 	break;
+ 	 	 	 	case 'email':
+ 	 	 	 	 	if(validateFldVal.match(/^([A-Za-z0-9-._%'+/]+@[A-Za-z0-9.-]+.[a-zA-Z]{2,22})$/) === null) {
+ 	 	 	 	 	 	setError(validateFld[i], 'Enter valid ' + fLabel);
+ 	 	 	 	 	 	isReturn = false;
+ 	 	 	 	 	}
+ 	 	 	 	 	break;
+ 	 	 	 	case 'number':
+ 	 	 	 	case 'double':
+ 	 	 	 	 	var isError = false,
+ 	 	 	 	 	errorKey = 'Enter valid ' + fLabel;
+ 	 	 	 	 	if((validateFld[i].getAttribute('ftype') === 'number' && validateFldVal.match(/^[0-9]+$/) === null)
+ 	 	 	 	 			|| (validateFld[i].getAttribute('ftype') === 'double' && validateFldVal.match(/^[0-9]*(\.[0-9]{0,2})?$/) === null)) {
+ 	 	 	 	 	 	isError = true;
+ 	 	 	 	 	}else if(validateFld[i].hasAttribute('fmin')){
+ 	 	 	 	 	 	if(validateFldVal < parseInt(validateFld[i].getAttribute('fmin'))) {
+ 	 	 	 	 	 	 	errorKey = 'Enter a number greater than or equal to ' +validateFld[i].getAttribute('fmin');
+ 	 	 	 	 	 	 	isError = true;
+ 	 	 	 	 	 	} else if(validateFldVal > parseInt(validateFld[i].getAttribute('fmax'))) {
+ 	 	 	 	 	 	 	errorKey = 'Enter a number less than or equal to ' +validateFld[i].getAttribute('fmax');
+ 	 	 	 	 	 	 	isError = true;
+ 	 	 	 	 	 	}
+ 	 	 	 	 	}
+ 	 	 	 	 	if(isError){
+ 	 	 	 	 	 	setError(validateFld[i], errorKey);
+ 	 	 	 	 	 	isReturn = false;
+ 	 	 	 	 	}
+ 	 	 	 	 	break;
+ 	 	 	 	case 'mobile':
+ 	 	 	 	 	 if(validateFldVal.match(/^[0-9a-zA-Z+.()\-;\s]+$/) === null) {
+ 	 	 	 	 	 	setError(validateFld[i], 'Enter valid ' + fLabel);
+ 	 	 	 	 	 	isReturn = false;
+ 	 	 	 	 	 }
+ 	 	 	 	 	break;
+ 	 	 	 	 }
+ 	 	 	}
+ 	 	}
+ 	 	return isReturn;
+ 	}
+
+		function checkMandatory717173000001162007() {
+		var isReturn = true;
+		var isNotCaptcha = false;
+		for(i=0;i<mndFields717173000001162007.length;i++) {
+		  var fieldObj=document.forms['BiginWebToRecordForm717173000001162007'][mndFields717173000001162007[i]];
+		  if(fieldObj) {
+			if (((fieldObj.value).replace(/^\s+|\s+$/g, '')).length==0) {
+				if(fieldObj.type =='file'){
+					setError(fieldObj, 'Please select a file to upload.'); 
+					isReturn = false;
+				}
+				else {
+					setError(fieldObj, fldLangVal717173000001162007[i] + ' cannot be empty');
+				isReturn= false;
+				}
+			}  else if(fieldObj.nodeName=='SELECT') {
+				if(fieldObj.options[fieldObj.selectedIndex].value=='-None-') {
+				setError(fieldObj, fldLangVal717173000001162007[i] +' cannot be none.');
+				isReturn = false;
+			   }
+			} else if(fieldObj.type =='checkbox'){
+ 	 	 	 if(fieldObj.checked == false){
+				setError(fieldObj, 'Please accept  '+fldLangVal717173000001162007[i]);
+				isReturn= false;
+				} 
+			 }
+		    }
+		}
+		 isNotCaptcha = true;
+		if(!validateFields717173000001162007()){isReturn = false;}
+		if(!isReturn){
+			var errEle = document.getElementsByClassName('wf-field-error');
+			if(errEle && errEle.length >0){
+				var inputEle = errEle[0].closest('.wf-field').getElementsByTagName('input');
+				if(inputEle && inputEle.length == 0) {
+					inputEle = errEle[0].closest('.wf-field').getElementsByTagName('select');
+				}
+				if(inputEle && inputEle.length > 0) {
+					inputEle[0].focus();
+				}
+			}
+		}else if(isNotCaptcha){
+			document.getElementById('formsubmit').disabled = true;
+		}
+		return isReturn; 
+		}
+
+		function validateForm717173000001162007(){
+			return checkMandatory717173000001162007();
+		}
+
+	   
+		document.getElementById('hidden717173000001162007Frame').addEventListener('load', function () {
+			try {
+				var doc = arguments[0].currentTarget.contentWindow.document;
+				if(doc.body.childElementCount !== 0) {
+					arguments[0].currentTarget.style.display = 'block';
+					document.getElementById('BiginWebToRecordFormParent717173000001162007').style.display = 'none';
+				}
+			} catch (error) {
+				arguments[0].currentTarget.style.display = 'block';
+				document.getElementById('BiginWebToRecordFormParent717173000001162007').style.display = 'none'
+			}
+		});
+</script>
+ 	 <script id='wf_script' src='https://bigin.zoho.in/crm/WebformScriptServlet?rid=d45e1e04ea1ba6a0aa3684a286d7ef28d3bb3cd6ea9f97d72add1ed84c6dd7ac91b8b0a3ce2b77839868a14d59259317gid1a682d23c566990e836688657c5b3a334de340080bb244c526b8c57a34e33c49'></script>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var ecogSocialSets = document.querySelectorAll('.ecog-collab-socials');
+  if(ecogSocialSets.length < 2) return;
+  var ecogSocialIndex = 0;
+  setInterval(function(){
+    ecogSocialSets[ecogSocialIndex].classList.remove('is-active');
+    ecogSocialIndex = (ecogSocialIndex + 1) % ecogSocialSets.length;
+    ecogSocialSets[ecogSocialIndex].classList.add('is-active');
+  }, 3000);
+})();
+</script>
 
 
 
