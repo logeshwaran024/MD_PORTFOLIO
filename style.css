@@ -252,6 +252,27 @@ img {
 .firm-badge:hover { transform: scale(1.08); }
 
 /* ============================================
+   TABLET LARGE (901px – 1140px)
+   ============================================ */
+@media (max-width: 1140px) and (min-width: 901px) {
+  .hero-card {
+    padding: 36px 36px 36px 40px;
+    min-height: 500px;
+  }
+
+  .hero-video-wrap {
+    width: 45%;
+    height: 300px;
+    right: 36px;
+    top: 38%;
+  }
+
+  .hero-links {
+    max-width: 50%;
+  }
+}
+
+/* ============================================
    TABLET  (481px – 900px)
    ============================================ */
 @media (max-width: 900px) {
@@ -1163,7 +1184,11 @@ img {
   font-weight: 700;
   color: #1a1a1a;
   letter-spacing: 0.01em;
-  margin: 0 0 28px 20px;
+  margin: 0 auto 28px auto;
+  max-width: 1240px;
+  padding-left: 40px;
+  width: calc(100% - 80px);
+  box-sizing: border-box;
 
   opacity: 0;
   transform: translateY(-40px);
@@ -1182,18 +1207,11 @@ img {
 
 /* ── Track wrapper: clips the scrolling row ── */
 .expertise-track-wrapper {
-  /* width: 100%;
-  max-width:1240px;
+  width: calc(100% - 80px);
+  max-width: 1240px;
   overflow: hidden;
-  margin-bottom: 14px;
-  margin-left: 50px; */
-
-  width: calc(100% - 100px);
-  max-width:1240px;
-  overflow: hidden;
-  margin-bottom: 14px;
-  margin-left: 50px;
-  margin-right: 50px;
+  margin: 0 auto 14px auto;
+  padding: 0;
 
   cursor: default;
   /* Fade edges for a polished look on all screens */
@@ -1271,7 +1289,7 @@ img {
 
   .expertise-heading {
     font-size: 25px;
-    margin: 0 0 32px 32px;
+    margin: 0 auto 32px auto;
   }
 
   .expertise-track-wrapper {
@@ -1305,7 +1323,7 @@ img {
 
   .expertise-heading {
     font-size: 28px;
-    margin: 0 0 36px 40px;
+    margin: 0 auto 36px auto;
   }
 
   .expertise-track-wrapper {
@@ -1343,6 +1361,50 @@ img {
 
   .expertise-card p {
     font-size: 13.5px;
+  }
+}
+
+/* ── Mobile: under 600px ── */
+@media (max-width: 599px) {
+  .expertise-section {
+    padding: 24px 0 32px 0;
+  }
+
+  .expertise-heading {
+    font-size: 18px;
+    margin: 0 auto 18px auto;
+    padding-left: 20px;
+    width: calc(100% - 32px);
+    /* Force visible on mobile — don't rely on JS observer */
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .expertise-track-wrapper {
+    width: calc(100% - 32px);
+    margin: 0 auto 10px auto;
+  }
+
+  .expertise-track {
+    gap: 10px;
+  }
+
+  .expertise-card {
+    width: 180px;
+    min-height: auto;
+    padding: 14px 16px;
+    border-radius: 10px;
+  }
+
+  .expertise-card h3 {
+    font-size: 13px;
+    margin: 0 0 5px 0;
+  }
+
+  .expertise-card p {
+    font-size: 11.5px;
+    line-height: 1.45;
   }
 }
 
@@ -1958,8 +2020,9 @@ img {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 0 48px;
-  margin-bottom: 32px;
+  width: calc(100% - 80px);
+  max-width: 1240px;
+  margin: 0 auto 32px auto;
   gap: 40px;
 
   /* Animation: top → bottom */
@@ -2007,12 +2070,10 @@ img {
 
 
 .tb-track-wrapper {
-  width: calc(100% - 100px);
-  max-width:1240px;
+  width: calc(100% - 80px);
+  max-width: 1240px;
   overflow: hidden;
-  margin-bottom: 24px;
-  margin-left:50px;
-  margin-right:50px;
+  margin: 0 auto 24px auto;
 }
 
 .tb-track-wrapper:last-child {
@@ -2079,7 +2140,7 @@ img {
 
 /* ── TABLET ── */
 @media (max-width: 1023px) and (min-width: 600px) {
-  .tb-top { padding: 0 28px; }
+  .tb-top { width: calc(100% - 56px); }
   .tb-heading { font-size: 22px; }
   .tb-tagline { font-size: 13px; }
   .tb-item { width: 180px; height: 115px; }
@@ -2090,7 +2151,7 @@ img {
   .tb-section { padding: 32px 0 40px; }
   .tb-top {
     flex-direction: column;
-    padding: 0 20px;
+    width: calc(100% - 40px);
     gap: 10px;
     margin-bottom: 24px;
   }
@@ -3436,17 +3497,60 @@ body {
   margin-left: 4px;
 }
 
-/* ---------- RESPONSIVE (legacy) ---------- */
-@media (max-width: 992px) {
+/* ---------- RESPONSIVE: Tablet (768px–1140px) ---------- */
+@media (max-width: 1140px) and (min-width: 769px) {
+  .whoami-wrap {
+    grid-template-columns: 1fr 1fr;
+    gap: 0 20px;
+  }
+
+  .whoami-photo {
+    width: 100%;
+    min-height: 360px;
+  }
+
+  .whoami-stats {
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  .whoami-number {
+    font-size: 30px;
+  }
+
+  .whoami-label {
+    font-size: 15px;
+  }
+
+  .whoami-text {
+    font-size: 14px;
+  }
+
+  .whoami-heading {
+    font-size: 22px;
+  }
+
+  .whoami-quote {
+    font-size: 14px;
+    padding: 14px 20px;
+  }
+
+  .whoami-top {
+    padding-right: 50px;
+  }
+}
+
+/* ---------- RESPONSIVE: Mobile (≤768px) ---------- */
+@media (max-width: 768px) {
   .whoami-wrap {
     grid-template-columns: 1fr;
-    gap: 30px 0;
+    gap: 24px 0;
   }
 
   .whoami-photo {
     width: 100%;
     max-width: 608px;
-    min-height: 380px;
+    min-height: 300px;
   }
 
   .whoami-btn {
@@ -3460,6 +3564,7 @@ body {
   .whoami-stats {
     gap: 40px;
     flex-wrap: wrap;
+    margin-top: 20px;
   }
 
   .whoami-photo,
@@ -3776,17 +3881,18 @@ body {
   }
 }
 
+/* Hide Follow Us sidebar on mobile — show only on tablet/laptop/desktop */
+@media (max-width: 768px) {
+  .edge-social {
+    display: none !important;
+  }
+}
+
 @media (max-width: 640px) {
   .edge-scrolltop {
     left: 8px;
     bottom: 24px;
     font-size: 11px;
-  }
-
-  .edge-social {
-    right: 8px;
-    font-size: 11px;
-    gap: 6px;
   }
 }
 
